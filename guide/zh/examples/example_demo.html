@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+    <script src="../../../../lib/ht.js"></script>
+    <script src="../../../../lib/ht-ui.js"></script>
+    <script src="../../../lib/ht-ui-sidebar.js"></script>
+    <script>
+        function init() {
+            var dataModel = new ht.DataModel();
+            // datas
+            for (var i = 0; i < 3; i++) {
+                var parent = new ht.Node();
+                parent.setName('Dashborad ' + i);
+                parent.s('icon', 'imgs/home.png');
+                parent.s('selectIcon', 'imgs/home_select.png');
+
+                for (var j = 0; j < 10; j++) {
+                    var child = new ht.Node();
+                    if (j === 1) {
+                        child.s('messages', [
+                            {
+                                text: '1',
+                                background: '#ed6b75'
+                            }
+                        ]);
+
+                        for (var k = 0; k < 6; k++) {
+                            var grandchild = new ht.Node();
+                            grandchild.setParent(child);
+                            grandchild.setName('Grandchild ' + k);
+                            dataModel.add(grandchild);
+                        }
+                    }
+                    else if (j === 3) {
+                        child.s('messages', [
+                            {
+                                text: '1',
+                                background: '#36c6d3'
+                            }
+                        ]);
+                    }
+                    else if (j === 5) {
+                        child.s('messages', [
+                            {
+                                text: '3',
+                                background: '#ed6b75'
+                            },
+                            {
+                                text: '22',
+                                background: '#36c6d3'
+                            }
+                        ]);
+                    }
+                    child.setName('Child ' + j);
+                    child.setParent(parent);
+                    dataModel.add(child);
+                }
+
+                dataModel.add(parent);
+            };
+
+            sidebar = new ht.ui.Sidebar(dataModel);
+            sidebar.addViewListener(function (e) {
+                if (e.kind === 'clickData') {
+                    if (sidebar.isCollapseMode() && !e.data.hasChildren()) {
+                        sidebar.hidePopup();
+                    }
+                    console.log('clickData', e);
+                }
+            });
+
+            borderLayout = new ht.ui.BorderLayout();
+            borderLayout.addView(sidebar, {
+                region: 'left',
+                width: 'match_parent',
+                height: 'match_parent'
+            });
+
+            var oldDrawToggle = borderLayout.drawToggle;
+            borderLayout.drawToggle = function (drawable, x, y, width, height, region) {
+                if (region === 'left' && sidebar.isCollapseMode()) {
+                    if (drawable) {
+                        var self = borderLayout,
+                            canvas = self.getSplitterCanvas(region),
+                            g = self.getRootContext(canvas),
+                            halfWidth = width / 2,
+                            halfHeight = height / 2,
+                            tx = x + halfWidth,
+                            ty = y + halfHeight;
+                        g.save();
+                        g.translate(tx, ty);
+                        g.rotate(Math.PI / 2);
+                        drawable.draw(-halfHeight, -halfWidth, height, width, null, self, canvas);
+                        g.restore();
+                    }
+                }
+                else {
+                    oldDrawToggle.call(borderLayout, drawable, x, y, width, height, region);
+                }
+            }
+
+            var oldIsLeftResizable = borderLayout.isLeftResizable;
+            borderLayout.isLeftResizable = function () {
+                if (sidebar.isCollapseMode()) return false;
+                return oldIsLeftResizable.call(borderLayout);
+            };
+
+            borderLayout.setLeftExpanded = function () {
+                if (sidebar.isCollapseMode()) {
+                    borderLayout.setLeftWidth(300);
+                    sidebar.setCollapseMode(false);
+                }
+                else {
+                    borderLayout.setLeftWidth(50);
+                    sidebar.setCollapseMode(true);
+                }
+            }
+
+            borderLayout.addToDOM();
+        }
+    </script>
+</head>
+
+<body onload="init();">
+
+</body>
+
+</html>
