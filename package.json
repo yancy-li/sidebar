@@ -4,7 +4,6 @@
   "private": true,
   "devDependencies": {
     "catharsis": "^0.8.8",
-    "grasp": "~0.2.1",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.5.2",

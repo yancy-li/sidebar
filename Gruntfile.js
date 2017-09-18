@@ -18,7 +18,6 @@ module.exports = function (grunt) {
     grunt.registerTask('release', [
         'clean',
         'concat',
-        'grasp',
         'uglify',
         'jsdoc',
         'guide',

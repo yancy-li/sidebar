@@ -23,10 +23,6 @@ module.exports = function (grunt) {
         ],
         dest: '<%= rootDir %>/build/ht-ui-<%= name %>-api_en.js'
     });
-    grunt.config('grasp.plugin', {
-        src: '<%= buildDir %>/ht-ui-<%= name %>-debug.js',
-        grasp: '<%= rootDir %>/grunt-tasks/plugin.json'
-    });
     grunt.config('uglify.plugin', {
         src: '<%= buildDir %>/ht-ui-<%= name %>-debug.js',
         dest: '<%= rootDir %>/lib/ht-ui-<%= name %>.js'
