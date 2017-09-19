@@ -1,5 +1,5 @@
 /**
- * 侧边栏菜单组件
+ * 侧边栏菜单组件<br>
  * 组件在交互过程中经常派发出一些事件，可以通过 addViewListener 监听，常见事件如下(不含从父类继承)：
  * <table class="params table table-striped">
  * <thead>
@@ -25,6 +25,18 @@
  * </tr>
  * </tbody>
  * </table>
+ * 样式属性(不含从父类继承)：headerBackground, headerBackgroundDrawable, hoverHeaderBackground, hoverHeaderBackgroundDrawable, 
+ * expandedHeaderBackground, expandedHeaderBackgroundDrawable, selectHeaderBackground, selectHeaderBackgroundDrawable, 
+ * headerLabelFont, headerLabelColor, hoverHeaderLabelColor, expandedHeaderLabelColor, selectHeaderLabelColor, headerHeight,
+ * headerCollapseIcon, headerCollapseIconDrawable, hoverHeaderCollapseIcon, hoverHeaderCollapseIconDrawable, selectHeaderCollapseIcon, selectHeaderCollapseIconDrawable, 
+ * headerExpandIcon, headerExpandIconDrawable, selectHeaderExpandIcon, selectHeaderExpandIconDrawable, rowHeight, 
+ * 
+ * hoverRowBackground, hoverRowBackgroundDrawable, expandedRowBackground, expandedRowBackgroundDrawable, selectRowBackground, selectRowBackgroundDrawable, 
+ * rowLabelFont, rowLabelColor, hoverRowLabelColor, expandedRowLabelColor, selectRowLabelColor, 
+ * rowCollapseIcon, rowCollapseIconDrawable, hoverRowCollapseIcon, hoverRowCollapseIconDrawable, selectRowCollapseIcon, selectRowCollapseIconDrawable, 
+ * rowExpandIcon, rowExpandIconDrawable, selectRowExpandIcon, selectRowExpandIconDrawable, 
+ * 
+ * indent, messageGap, headerSeparatorColor, headerSeparatorVisible, headerSeparatorSize, popupDirection, popupSeparatorColor
  * @param {ht.DataModel} dataModel 绑定的数据模型
  * @constructor
  * @extends {ht.ui.VBoxLayout}
