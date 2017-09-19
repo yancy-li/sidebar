@@ -46,7 +46,7 @@
             var dataModel = new ht.DataModel();
             for (var i = 0; i < 3; i++) {
                 var parent = new ht.Node();
-                parent.setName('Dashborad ' + i);
+                parent.setName('Dashboard ' + i);
                 parent.s('icon', 'imgs/home.png');
 
                 for (var j = 0; j < 10; j++) {
@@ -107,7 +107,7 @@
 
             var oldDrawToggle = borderLayout.drawToggle;
             borderLayout.drawToggle = function (drawable, x, y, width, height, region) {
-                if (region === 'right' && rightSidebar.isCollapseMode()) {
+                if (region === 'right' && rightSidebar.isCollapsedMode()) {
                     if (drawable) {
                         var self = borderLayout,
                             canvas = self.getSplitterCanvas(region),
@@ -130,18 +130,18 @@
 
             var oldIsRightResizable = borderLayout.isRightResizable;
             borderLayout.isRightResizable = function () {
-                if (rightSidebar.isCollapseMode()) return false;
+                if (rightSidebar.isCollapsedMode()) return false;
                 return oldIsRightResizable.call(borderLayout);
             };
 
             borderLayout.setRightExpanded = function () {
-                if (rightSidebar.isCollapseMode()) {
+                if (rightSidebar.isCollapsedMode()) {
                     borderLayout.setRightWidth(300);
-                    rightSidebar.setCollapseMode(false);
+                    rightSidebar.setCollapsedMode(false);
                 }
                 else {
                     borderLayout.setRightWidth(50);
-                    rightSidebar.setCollapseMode(true);
+                    rightSidebar.setCollapsedMode(true);
                 }
             }
 

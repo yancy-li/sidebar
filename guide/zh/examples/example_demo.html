@@ -13,7 +13,7 @@
             // datas
             for (var i = 0; i < 3; i++) {
                 var parent = new ht.Node();
-                parent.setName('Dashborad ' + i);
+                parent.setName('Dashboard ' + i);
                 parent.s('icon', 'imgs/home.png');
                 parent.s('selectIcon', 'imgs/home_select.png');
 
@@ -65,7 +65,7 @@
             sidebar = new ht.ui.Sidebar(dataModel);
             sidebar.addViewListener(function (e) {
                 if (e.kind === 'clickData') {
-                    if (sidebar.isCollapseMode() && !e.data.hasChildren()) {
+                    if (sidebar.isCollapsedMode() && !e.data.hasChildren()) {
                         sidebar.hidePopup();
                     }
                     console.log('clickData', e);
@@ -81,7 +81,7 @@
 
             var oldDrawToggle = borderLayout.drawToggle;
             borderLayout.drawToggle = function (drawable, x, y, width, height, region) {
-                if (region === 'left' && sidebar.isCollapseMode()) {
+                if (region === 'left' && sidebar.isCollapsedMode()) {
                     if (drawable) {
                         var self = borderLayout,
                             canvas = self.getSplitterCanvas(region),
@@ -104,18 +104,18 @@
 
             var oldIsLeftResizable = borderLayout.isLeftResizable;
             borderLayout.isLeftResizable = function () {
-                if (sidebar.isCollapseMode()) return false;
+                if (sidebar.isCollapsedMode()) return false;
                 return oldIsLeftResizable.call(borderLayout);
             };
 
             borderLayout.setLeftExpanded = function () {
-                if (sidebar.isCollapseMode()) {
+                if (sidebar.isCollapsedMode()) {
                     borderLayout.setLeftWidth(300);
-                    sidebar.setCollapseMode(false);
+                    sidebar.setCollapsedMode(false);
                 }
                 else {
                     borderLayout.setLeftWidth(50);
-                    sidebar.setCollapseMode(true);
+                    sidebar.setCollapsedMode(true);
                 }
             }
 

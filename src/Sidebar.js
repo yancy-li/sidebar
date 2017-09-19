@@ -188,21 +188,21 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
     /**
      * 设置合并模式 
-     * @param {Boolean} collapseMode
+     * @param {Boolean} collapsedMode
      */
-    setCollapseMode: function (collapseMode) {
+    setCollapsedMode: function (collapsedMode) {
         var self = this,
-            oldCollapseMode = !!self._collapseMode;
-        collapseMode = !!collapseMode;
+            oldCollapsedMode = !!self._collapsedMode;
+        collapsedMode = !!collapsedMode;
 
-        if (oldCollapseMode !== collapseMode) {
+        if (oldCollapsedMode !== collapsedMode) {
             var handleTreeViewEvent = self.handleTreeViewEvent,
                 accordionTree = self._accordionTree,
                 popupTree = self._popupTree;
 
             self.clear();
 
-            if (collapseMode) {
+            if (collapsedMode) {
                 accordionTree.removeViewListener(handleTreeViewEvent, self);
                 popupTree.addViewListener(handleTreeViewEvent, self);
 
@@ -215,15 +215,15 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                 self.addView(accordionTree);
             }
         }
-        self.setPropertyValue('collapseMode', collapseMode);
+        self.setPropertyValue('collapsedMode', collapsedMode);
     },
 
     /**
      * 是否处于合并模式
      * @return {Boolean}
      */
-    isCollapseMode: function () {
-        return this._collapseMode;
+    isCollapsedMode: function () {
+        return this._collapsedMode;
     },
 
     /**
@@ -338,7 +338,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
         if (property.indexOf('header') >= 0 || property.indexOf('Header') >= 0 || property.indexOf('row') >= 0 || property.indexOf('Row') >= 0
             || property === 'indent' || property === 'messageGap') {
-            if (self.isCollapseMode()) {
+            if (self.isCollapsedMode()) {
                 self._popupTree.iv();
             }
             else {
@@ -353,7 +353,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
      */
     validateModel: function () {
         var self = this;
-        if (self.isCollapseMode()) {
+        if (self.isCollapsedMode()) {
             self.clear();
             var roots = self._dataModel._roots;
             roots.each(function (data) {
@@ -412,7 +412,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
         ui.Sidebar.superClass.validateImpl.call(self, x, y, width, height);
 
-        if (self.isCollapseMode()) {
+        if (self.isCollapsedMode()) {
             var children = self.getChildren(),
                 dataModel = self.getDataModel(),
                 popupTree = self._popupTree,

@@ -217,7 +217,7 @@
 
 <pre><code>sidebar.addViewListener(function (e) {
     if (e.kind === &#39;clickData&#39;) {
-        if (sidebar.isCollapseMode() &amp;&amp; !e.data.hasChildren()) {
+        if (sidebar.isCollapsedMode() &amp;&amp; !e.data.hasChildren()) {
             sidebar.hidePopup();
         }
 

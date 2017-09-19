@@ -732,13 +732,13 @@ ht.ui.Sidebar.prototype.getPopupSeparatorColor = function() {}
  * 是否处于合并状态
  * @return {Boolean} 是否处于合并状态
  */
-ht.ui.Sidebar.prototype.getCollapseMode = function() {}
+ht.ui.Sidebar.prototype.getCollapsedMode = function() {}
 
 /**
  * 设置合并状态
- * @param {Boolean} collapseMode 合并状态
+ * @param {Boolean} collapsedMode 合并状态
  */
-ht.ui.Sidebar.prototype.setCollapseMode = function(collapseMode) {}
+ht.ui.Sidebar.prototype.setCollapsedMode = function(collapsedMode) {}
 
 /**
  * 设置弹出树组件与 Sidebar 组件之间的分隔线的颜色

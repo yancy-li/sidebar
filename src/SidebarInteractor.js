@@ -32,7 +32,7 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
             target = Default.getTarget(e),
             dragger = Default.getDragger();
         if (!dragger) {
-            if (nav.isCollapseMode()) {
+            if (nav.isCollapsedMode()) {
                 if (!nav.getView().contains(target)
                     && !nav._popupTree.getView().contains(target)) {
                     nav.setHoverDataId(null);
@@ -44,7 +44,7 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
         var self = this,
             nav = self.getComponent();
 
-        if (nav.isCollapseMode())
+        if (nav.isCollapsedMode())
             nav.setHoverDataId(nav.getDataIdAt(e));
     }
 });
