@@ -63,13 +63,11 @@
             };
 
             sidebar = new ht.ui.Sidebar(dataModel);
-            sidebar.addViewListener(function (e) {
-                if (e.kind === 'clickData') {
-                    if (sidebar.isCollapsedMode() && !e.data.hasChildren()) {
-                        sidebar.hidePopup();
-                    }
-                    console.log('clickData', e);
+            sidebar.on('clickData', function (e) {
+                if (sidebar.isCollapsedMode() && !e.data.hasChildren()) {
+                    sidebar.hidePopup();
                 }
+                console.log('clickData', e);
             });
 
             borderLayout = new ht.ui.BorderLayout();

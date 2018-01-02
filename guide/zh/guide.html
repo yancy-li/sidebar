@@ -215,17 +215,15 @@
 
 <p><code>clickData</code> 事件用于监听节点点击和提示起泡点击：</p>
 
-<pre><code>sidebar.addViewListener(function (e) {
-    if (e.kind === &#39;clickData&#39;) {
-        if (sidebar.isCollapsedMode() &amp;&amp; !e.data.hasChildren()) {
-            sidebar.hidePopup();
-        }
-
-        if (e.message) {
-            // 气泡点击事件
-        }
-        console.log(&#39;clickData：&#39;, e);
+<pre><code>sidebar.on(&#39;clickData&#39;, function (e) {
+    if (sidebar.isCollapsedMode() &amp;&amp; !e.data.hasChildren()) {
+        sidebar.hidePopup();
     }
+
+    if (e.message) {
+        // 气泡点击事件
+    }
+    console.log(&#39;clickData：&#39;, e);
 });</code></pre>
 
 <div id="ref_sample"></div>
