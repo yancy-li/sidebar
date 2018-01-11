@@ -25,7 +25,7 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
             self.fireViewEvent({
                 kind: 'clickData',
                 data: self.getRootData(),
-                event: e,
+                nativeEvent: e,
                 source: self
             });
         }

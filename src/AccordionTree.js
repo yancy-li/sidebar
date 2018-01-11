@@ -30,7 +30,7 @@ var AccordionTree = ui.Sidebar.AccordionTree = function (dataModel, sidebar) {
         self.fireViewEvent({
             kind: 'clickData',
             data: data,
-            event: e,
+            nativeEvent: e,
             message: message,
             source: self
         });

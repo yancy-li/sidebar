@@ -17,7 +17,7 @@
  *      source: view, // 事件源
  *      data: data, // 节点对象
  *      message: message, // 气泡消息对象
- *      event: e // 原生事件对象
+ *      nativeEvent: e // 原生事件对象
  * }
  * </pre>
  * </td>
