@@ -241,7 +241,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     },
 
     getInteractorClasses: function() {
-        return ui.Sidebar.superClass.getInteractorClasses.call(this).concat(SidebarInteractor);
+        return ui.Sidebar.superClass.getInteractorClasses.call(this).concat([SidebarInteractor]);
     },
 
     /**
