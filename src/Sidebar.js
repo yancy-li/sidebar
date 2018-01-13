@@ -240,16 +240,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         return this._popupTree.isInDOM();
     },
 
-    /**
-     * @override
-     */
-    setUpInteractors: function () {
-        ui.Sidebar.superClass.setUpInteractors.call(this);
-        var navInteractor = this._navInteractor;
-        if (!navInteractor) {
-            navInteractor = this._navInteractor = new SidebarInteractor(this);
-            navInteractor.addListeners();
-        }
+    getInteractorClasses: function() {
+        return ui.Sidebar.superClass.getInteractorClasses.call(this).concat(SidebarInteractor);
     },
 
     /**
