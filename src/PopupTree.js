@@ -19,7 +19,7 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
         return sidebar.getRowHeight(data) + marginTop + marginBottom;
     });
 
-    self.getView().addEventListener('click', function (e) {
+    self.on('d:click', function (e) {
         var lp = self.lp(e);
         if (lp.y < sidebar.getHeaderHeight()) {
             self.fireViewEvent({
@@ -168,9 +168,11 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
         // 左侧白色边框
         g.beginPath();
         if (sidebar.getPopupDirection() === 'right') {
+            g.clearRect(0, y, 1, height);
             g.rect(0, y, 1, height);
         }
         else {
+            g.clearRect(width - 1, y, 1, height);
             g.rect(width - 1, y, 1, height);
         }
 
