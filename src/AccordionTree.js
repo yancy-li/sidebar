@@ -129,7 +129,6 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
      * @return {Boolean}
      */
     hasSelectedChildren: function (data) {
-        if (this.isSelected(data)) return true;
         if (data.hasChildren()) {
             var self = this,
                 childSelected = false,
@@ -161,7 +160,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
 
         if (level === 0) {
             // header
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
                 return sidebar.getSelectHeaderBackgroundDrawable();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {
@@ -175,7 +174,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             }
         }
         else {
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
                 return sidebar.getSelectRowBackgroundDrawable();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {
@@ -231,7 +230,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             dataExpanded = hasChildren && self.isExpanded(data);
         if (level === 0) {
             if (dataExpanded) {
-                if (self.hasSelectedChildren(data)) {
+                if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
                     return sidebar.getSelectHeaderExpandIconDrawable();
                 }
                 else {
@@ -239,7 +238,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
                 }
             }
             else if (hasChildren) {
-                if (self.hasSelectedChildren(data)) {
+                if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
                     return sidebar.getSelectHeaderCollapseIconDrawable();
                 }
                 else if (data === self.getHoverData()) {
@@ -252,7 +251,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
         }
         else if (hasChildren) {
             if (dataExpanded) {
-                if (self.hasSelectedChildren(data)) {
+                if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                     return sidebar.getSelectRowExpandIconDrawable();
                 }
                 else {
@@ -260,7 +259,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
                 }
             }
             else {
-                if (self.hasSelectedChildren(data)) {
+                if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                     return sidebar.getSelectRowCollapseIconDrawable();
                 }
                 else if (data === self.getHoverData()) {
@@ -285,7 +284,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             icon = data.s('icon'),
             dataExpanded = hasChildren && self.isExpanded(data);
         if (dataExpanded) {
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                 return data.s('selectIcon') || icon;
             }
             else {
@@ -293,7 +292,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             }
         }
         else {
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                 return data.s('selectIcon') || icon;
             }
             else if (data === self.getHoverData()) {
@@ -318,7 +317,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
 
         if (level === 0) {
             // header
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                 return sidebar.getSelectHeaderLabelColor();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {
@@ -332,7 +331,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             }
         }
         else {
-            if (self.hasSelectedChildren(data)) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
                 return sidebar.getSelectRowLabelColor();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {

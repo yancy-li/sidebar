@@ -35,7 +35,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
         'indent', 'messageGap',
         'headerSeparatorColor', 'headerSeparatorVisible', 'headerSeparatorSize',
-        'popupDirection', 'popupSeparatorColor'
+        'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent'
     ],
     // 普通属性
     ms_ac: ['hoverDataId'],
@@ -45,6 +45,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __headerHeight: 38,
     __rowHeight: 30,
     __messageGap: 4,
+    __useChildSelectStateForParent: true,
 
     __rowLabelColor: '#b4bcc8',
     __hoverRowLabelColor: '#b4bcc8',
@@ -448,7 +449,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                     popupTree.validate();
                 }
 
-                if (hasSelectedChildren) {
+                if (popupTree.isSelected(labelData) || hasSelectedChildren && self.isUseChildSelectStateForParent()) {
                     label.setBackgroundDrawable(self.getSelectHeaderBackgroundDrawable());
                 }
                 else if (label._item.id === hoverDataId) {
@@ -469,7 +470,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                 }
 
                 var icon = labelData.s('icon');
-                if (popupTree.hasSelectedChildren(labelData)) {
+                if (popupTree.isSelected(labelData) || popupTree.hasSelectedChildren(labelData) && self.isUseChildSelectStateForParent()) {
                     label.setIcon(labelData.s('selectIcon') || icon);
                 }
                 else if (label._item.id === hoverDataId) {
@@ -535,7 +536,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             indent: true, messageGap: true,
             headerSeparatorVisible: true,
             popupDirection: true,
-            popupSeparatorColor: true
+            popupSeparatorColor: true,
+            'is:useChildSelectStateForParent': true
         });
     }
 });

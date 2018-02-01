@@ -142,7 +142,7 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
             rootData = self.getRootData();
 
         var drawable, textColor, headerHeight = sidebar.getHeaderHeight();
-        if (self.hasSelectedChildren(rootData)) {
+        if (self.isSelected(rootData) || self.hasSelectedChildren(rootData) && sidebar.isUseChildSelectStateForParent()) {
             drawable = sidebar.getSelectHeaderBackgroundDrawable();
             textColor = sidebar.getSelectHeaderLabelColor();
         }

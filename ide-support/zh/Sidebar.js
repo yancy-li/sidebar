@@ -775,3 +775,15 @@ ht.ui.Sidebar.prototype.hidePopup = function() {}
  * @return {Boolean} 是否处于弹出状态
  */
 ht.ui.Sidebar.prototype.isShowing = function() {}
+
+/**
+ * 当子节点被选中时，父节点是否显示选中背景、图标
+ * @return {Boolean}
+ */
+ht.ui.Sidebar.prototype.isUseChildSelectStateForParent = function() {}
+
+/**
+ * 设置当子节点被选中时，父节点是否显示选中背景、图标
+ * @param {Boolean} useChildSelectStateForParent
+ */
+ht.ui.Sidebar.prototype.setUseChildSelectStateForParent = function(useChildSelectStateForParent) {}
