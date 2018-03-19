@@ -351,6 +351,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             var roots = self._dataModel._roots;
             roots.each(function (data) {
                 var label = new ui.Label();
+                label.__align = 'center';
                 label.setIcon(data.getIcon());
                 label._item = {
                     id: data.getId(),
