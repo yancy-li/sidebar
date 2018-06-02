@@ -57,6 +57,20 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
     },
 
     /**
+     * @override
+     */
+    isVisible: function(data) {
+        var sidebar = this._sidebar;
+        if (data) {
+            var visibleFunc = sidebar.getVisibleFunc();
+            return visibleFunc ? visibleFunc(data) : true;
+        }
+        else {
+            return this.getPropertyValue('visible');
+        }
+    },
+
+    /**
      * 返回 Label 文字颜色
      * @override
      * @param {ht.Data} data

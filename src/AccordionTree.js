@@ -53,6 +53,20 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
     },
 
     /**
+     * @override
+     */
+    isVisible: function(data) {
+        var sidebar = this._sidebar;
+        if (data) {
+            var visibleFunc = sidebar.getVisibleFunc();
+            return visibleFunc ? visibleFunc(data) : true;
+        }
+        else {
+            return this.getPropertyValue('visible');
+        }
+    },
+
+    /**
      * 获取鼠标下的 message
      * @param {ht.Data} data
      * @param {Event} e

@@ -787,3 +787,18 @@ ht.ui.Sidebar.prototype.isUseChildSelectStateForParent = function() {}
  * @param {Boolean} useChildSelectStateForParent
  */
 ht.ui.Sidebar.prototype.setUseChildSelectStateForParent = function(useChildSelectStateForParent) {}
+
+
+
+/**
+ * 设置可见过滤器
+ * @param {function} func 过滤器函数
+ */
+ht.ui.Sidebar.prototype.setVisibleFunc = function (func){};
+
+
+/**
+ * 获取可见过滤器函数
+ * @return {function} 可见过滤器函数
+ */
+ht.ui.Sidebar.prototype.getVisibleFunc = function (){};

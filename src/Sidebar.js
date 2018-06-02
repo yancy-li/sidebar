@@ -35,7 +35,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
         'indent', 'messageGap',
         'headerSeparatorColor', 'headerSeparatorVisible', 'headerSeparatorSize',
-        'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent'
+        'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent', 'visibleFunc'
     ],
     // 普通属性
     ms_ac: ['hoverDataId'],
@@ -337,6 +337,10 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             else {
                 self._accordionTree.iv();
             }
+        }
+        if (property === 'visibleFunc') {
+            self._popupTree.ivm();
+            self._accordionTree.ivm();
         }
     },
 
