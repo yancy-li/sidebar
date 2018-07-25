@@ -31,7 +31,7 @@
  * headerCollapseIcon, headerCollapseIconDrawable, hoverHeaderCollapseIcon, hoverHeaderCollapseIconDrawable, selectHeaderCollapseIcon, selectHeaderCollapseIconDrawable, 
  * headerExpandIcon, headerExpandIconDrawable, selectHeaderExpandIcon, selectHeaderExpandIconDrawable, rowHeight, 
  * 
- * hoverRowBackground, hoverRowBackgroundDrawable, expandedRowBackground, expandedRowBackgroundDrawable, selectRowBackground, selectRowBackgroundDrawable, 
+ * rowBackground, hoverRowBackground, hoverRowBackgroundDrawable, expandedRowBackground, expandedRowBackgroundDrawable, selectRowBackground, selectRowBackgroundDrawable, 
  * rowLabelFont, rowLabelColor, hoverRowLabelColor, expandedRowLabelColor, selectRowLabelColor, 
  * rowCollapseIcon, rowCollapseIconDrawable, hoverRowCollapseIcon, hoverRowCollapseIconDrawable, selectRowCollapseIcon, selectRowCollapseIconDrawable, 
  * rowExpandIcon, rowExpandIconDrawable, selectRowExpandIcon, selectRowExpandIconDrawable, 
@@ -362,6 +362,30 @@ ht.ui.Sidebar.prototype.getRowHeight = function() {}
  */
 ht.ui.Sidebar.prototype.setRowHeight = function(height) {}
 
+
+/**
+ * 获取普通行背景
+ * @return {Object} 背景
+ */
+ht.ui.Sidebar.prototype.getRowBackground = function() {}
+
+/**
+ * 设置普通行背景
+ * @param {Object} background 背景，值为任意 Drawable 值(颜色值、图片名、图片路径等，参考 UI 产品包入门手册)
+ */
+ht.ui.Sidebar.prototype.setRowBackground = function(background) {}
+
+/**
+ * 获取普通行背景 Drawable 对象
+ * @return {ht.ui.drawable.Drawable} 背景 Drawable
+ */
+ht.ui.Sidebar.prototype.getRowBackgroundDrawable = function() {}
+
+/**
+ * 设置普通行背景 Drawable
+ * @param {ht.ui.drawable.Drawable} background 背景
+ */
+ht.ui.Sidebar.prototype.setRowBackgroundDrawable = function(background) {}
 
 
 /**

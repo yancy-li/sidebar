@@ -197,6 +197,9 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             else if (data === self.getHoverData()) {
                 return sidebar.getHoverRowBackgroundDrawable();
             }
+            else {
+                return sidebar.getRowBackgroundDrawable();
+            }
         }
     },
 

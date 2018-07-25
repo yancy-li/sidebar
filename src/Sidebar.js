@@ -27,7 +27,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         'drawable:headerExpandIcon', 'drawable:selectHeaderExpandIcon',
         'rowHeight',
 
-        'drawable:hoverRowBackground', 'drawable:expandedRowBackground', 'drawable:selectRowBackground',
+        'drawable:rowBackground', 'drawable:hoverRowBackground', 'drawable:expandedRowBackground', 'drawable:selectRowBackground',
         'rowLabelFont', 'rowLabelColor', 'hoverRowLabelColor', 'expandedRowLabelColor', 'selectRowLabelColor',
 
         'drawable:rowCollapseIcon', 'drawable:hoverRowCollapseIcon', 'drawable:selectRowCollapseIcon',
