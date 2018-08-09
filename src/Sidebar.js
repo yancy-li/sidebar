@@ -80,7 +80,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __rowExpandIcon: 'sidebar_expand',
     __selectRowExpandIcon: 'sidebar_selectExpand',
 
-    __indent: 4,
+    __indent: 12,
 
     __headerSeparatorColor: '#3d4957',
     __headerSeparatorVisible: true,

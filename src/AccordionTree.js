@@ -132,10 +132,10 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
      */
     drawToggleIcon: function (drawable, x, y, width, height, data) {
         if (drawable) {
-            x = this.getContentLeft() + this.getContentWidth() - width - this.getIndent();
+            x = this.getContentLeft() + this.getContentWidth() - width - this.getRowIndent();
             drawable.draw(x, y, width, height, data, this);
         }
-        return width;
+        return 0;
     },
 
     /**
@@ -477,7 +477,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             textFont = '11px "Open Sans", sans-serif';
 
         if (messages) {
-            var messageX = self.getContentLeft() + self.getContentWidth() - self.getIndent() - gap;
+            var messageX = self.getContentLeft() + self.getContentWidth() - self.getRowIndent() - gap;
             if (data.hasChildren()) messageX -= self.getIconWidth();
             var messageRects = data._messageRects = [];
             messages.forEach(function (message) {
