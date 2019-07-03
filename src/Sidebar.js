@@ -185,6 +185,9 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         else if (kind === 'clickData') {
             self.fireViewEvent(e);
         }
+        else if (kind === 'clickDataMessage') {
+            self.fireViewEvent(e);
+        }
     },
 
     /**

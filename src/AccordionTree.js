@@ -28,7 +28,7 @@ var AccordionTree = ui.Sidebar.AccordionTree = function (dataModel, sidebar) {
     self.onDataClicked = function (data, e) {
         var message = this.messageHitTest(data, e);
         self.fireViewEvent({
-            kind: 'clickData',
+            kind: 'clickDataMessage',
             data: data,
             nativeEvent: e,
             message: message,
