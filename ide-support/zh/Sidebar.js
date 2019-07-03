@@ -9,11 +9,11 @@
  * </thead>
  * <tbody>
  * <tr>
- * <td class="name"><code>clickData</code></td>
+ * <td class="name"><code>clickDataMessage</code></td>
  * <td>
  * <pre>
  * {
- *      kind: 'clickData', // 事件类型
+ *      kind: 'clickDataMessage', // 事件类型
  *      source: view, // 事件源
  *      data: data, // 节点对象
  *      message: message, // 气泡消息对象
