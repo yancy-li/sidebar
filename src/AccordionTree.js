@@ -210,7 +210,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
      * @param {Boolean } selected
      * @returns {ht.ui.drawable.Drawable}
      */
-    getRowBackgroundDrawable: function (data, selected) {
+    getCurrentRowBackgroundDrawable: function (data, selected) {
         return this.getRowBackgroundDrawableImpl(data, selected, this.getLevel(data));
     },
 
