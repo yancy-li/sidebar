@@ -27,13 +27,15 @@ var AccordionTree = ui.Sidebar.AccordionTree = function (dataModel, sidebar) {
     // 点击 data 时派发事件出去
     self.onDataClicked = function (data, e) {
         var message = this.messageHitTest(data, e);
-        self.fireViewEvent({
-            kind: 'clickDataMessage',
-            data: data,
-            nativeEvent: e,
-            message: message,
-            source: self
-        });
+        if (message) {
+            self.fireViewEvent({
+                kind: 'clickDataMessage',
+                data: data,
+                nativeEvent: e,
+                message: message,
+                source: self
+            });
+        }
     };
 }
 
@@ -104,7 +106,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
     },
 
     /**
-     * 检测 toggle 区域
+     * 检测 toggle 区域，通过这个函数实现点击在 parent 不选中，而是展开合并
      * @override
      * @param {Event} e
      * @param {ht.Data} data
