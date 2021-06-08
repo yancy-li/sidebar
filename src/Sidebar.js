@@ -3,6 +3,7 @@
  * @param {ht.DataModel} dataModel
  */
 ui.Sidebar = function (dataModel) {
+    if (!dataModel) dataModel = new ht.DataModel();
     var self = this,
         accordionTree = self._accordionTree = new AccordionTree(dataModel, self);
 
@@ -172,6 +173,29 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         }
     },
 
+    setListDatas: function(array, setId) {
+        if (array) {
+            if (Default.isString(array)) {
+                array = ht.Default.parse(array);
+            }
+            if (Default.isArray(array)) {
+                var self = this,
+                    dm = self.getDataModel();
+                
+                var jsonSerializer = new ui.SimpleDMJSONSerializer(dm);
+                dm.clear();
+
+                jsonSerializer.deserialize(array, null, setId);
+            }
+        }
+    },
+    getListDatas: function() {
+        var self = this,
+            dm = self.getDataModel();
+            
+        var jsonSerializer = new ui.SimpleDMJSONSerializer(dm);
+        return jsonSerializer.toJSON();
+    },
     /**
      * 处理树组件事件
      * @param {Event} e
