@@ -323,6 +323,18 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
         }
     },
 
+    getLabelFont: function(data) {
+        var self = this,
+            sidebar = self._sidebar,
+            level = self.getLevel(data);
+
+        if (level === 0) {
+            return sidebar.getHeaderLabelFont();
+        }
+        else {
+            return sidebar.getRowLabelFont();
+        }
+    },
     /**
      * 获取 Label 文字颜色
      * @override

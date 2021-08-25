@@ -52,6 +52,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __hoverRowLabelColor: '#b4bcc8',
     __expandedRowLabelColor: '#b4bcc8',
     __selectRowLabelColor: '#b4bcc8',
+    __headerLabelFont: '14px "Open Sans", sans-serif',
     __rowLabelFont: '14px "Open Sans", sans-serif',
 
     __hoverRowBackground: '#3e4b5c',
