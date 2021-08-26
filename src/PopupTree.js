@@ -7,9 +7,6 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
     var self = this;
     PopupTree.superClass.constructor.call(self, dataModel, sidebar);
 
-    // 顶部预留 padding 用来绘制 header
-    self.setPadding([sidebar.getHeaderHeight(), 0, 0, 0]);
-
     self.setRowHeightFunc(function (data) {
         var self = this,
             level = self.getLevel(data),
@@ -33,7 +30,10 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
 };
 
 Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
-
+    getPadding: function() {
+        var self = this;
+        [self._sidebar.getHeaderHeight(), 0, 0, 0]
+    },
     /**
      * 获取节点范围
      * @param {ht.Data} data
