@@ -82,8 +82,7 @@
                 if (region === 'left' && sidebar.isCollapsedMode()) {
                     if (drawable) {
                         var self = borderLayout,
-                            canvas = self.getSplitterCanvas(region),
-                            g = self.getRootContext(canvas),
+                            g = self.getRootContext(),
                             halfWidth = width / 2,
                             halfHeight = height / 2,
                             tx = x + halfWidth,
@@ -91,7 +90,7 @@
                         g.save();
                         g.translate(tx, ty);
                         g.rotate(Math.PI / 2);
-                        drawable.draw(-halfHeight, -halfWidth, height, width, null, self, canvas);
+                        drawable.draw(-halfHeight, -halfWidth, height, width, null, self, self.getRootCanvas());
                         g.restore();
                     }
                 }
