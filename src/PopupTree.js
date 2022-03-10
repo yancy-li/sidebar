@@ -32,7 +32,7 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
 Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
     getPadding: function() {
         var self = this;
-        [self._sidebar.getHeaderHeight(), 0, 0, 0]
+        return [self._sidebar.getHeaderHeight(), 0, 0, 0];
     },
     /**
      * 获取节点范围
