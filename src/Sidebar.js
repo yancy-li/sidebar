@@ -36,7 +36,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
 
         'indent', 'messageGap',
         'headerSeparatorColor', 'headerSeparatorVisible', 'headerSeparatorSize',
-        'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent', 'visibleFunc'
+        'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent', 'visibleFunc',
+        'headerIconWidth', 'headerIconHeight', 'rowIconWidth', 'rowIconHeight'
     ],
     // 普通属性
     ms_ac: ['hoverDataId'],
@@ -46,6 +47,10 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __headerHeight: 38,
     __rowHeight: 30,
     __messageGap: 4,
+    __headerIconWidth: 16,
+    __headerIconHeight: 16,
+    __rowIconWidth: 16,
+    __rowIconHeight: 16,
     __useChildSelectStateForParent: true,
 
     __rowLabelColor: '#b4bcc8',
@@ -512,6 +517,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                 else {
                     label.setIcon(icon);
                 }
+                label.setIconWidth(self.getHeaderIconWidth());
+                label.setIconHeight(self.getHeaderIconHeight());
             }
         }
     },
@@ -547,6 +554,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             selectHeaderExpandIcon: true,
             selectHeaderExpandIconDrawable: true,
             rowHeight: true,
+            rowBackground: true,
+            rowBackgroundDrawable: true,
             hoverRowBackground: true,
             hoverRowBackgroundDrawable: true,
             expandedRowBackground: true,
@@ -570,7 +579,11 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             headerSeparatorVisible: true,
             popupDirection: true,
             popupSeparatorColor: true,
-            'is:useChildSelectStateForParent': true
+            'is:useChildSelectStateForParent': true,
+            headerIconWidth: true,
+            headerIconHeight: true,
+            rowIconWidth: true,
+            rowIconHeight: true
         });
     }
 });

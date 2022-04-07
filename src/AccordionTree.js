@@ -473,6 +473,18 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
         self.drawMessage(g, data, x, y, width, height);
     },
 
+    getIconWidth: function(data) {
+        var self = this,
+            sidebar = self._sidebar;
+        if (data.getParent()) return sidebar.getRowIconWidth();
+        else return sidebar.getHeaderIconWidth();
+    },
+    getIconHeight: function(data) {
+        var self = this,
+            sidebar = self._sidebar;
+        if (data.getParent()) return sidebar.getRowIconHeight();
+        else return sidebar.getHeaderIconHeight();
+    },
     /**
      * 绘制消息气泡
      * @param {CanvasRenderingContext2D} g
@@ -492,7 +504,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
 
         if (messages) {
             var messageX = self.getContentLeft() + self.getContentWidth() - self.getRowIndent() - gap;
-            if (data.hasChildren()) messageX -= self.getIconWidth();
+            if (data.hasChildren()) messageX -= self.getIconWidth(data);
             var messageRects = data._messageRects = [];
             messages.forEach(function (message) {
                 var text = message.text,
