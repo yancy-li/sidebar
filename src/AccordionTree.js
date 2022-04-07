@@ -137,7 +137,7 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             x = this.getContentLeft() + this.getContentWidth() - width - this.getRowIndent();
             drawable.draw(x, y, width, height, data, this);
         }
-        return 0;
+        return 4 - this.getIconGap();
     },
 
     /**
@@ -468,11 +468,20 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
         width = rect[2];
         height = rect[3];
 
+        // var oldIsToggleIconVisible = self.isToggleIconVisible;
+        // self.isToggleIconVisible = function() {
+        //     return false;
+        // }
+
         AccordionTree.superClass.drawRow.call(self, g, data, selected, x, y, width, height);
 
         self.drawMessage(g, data, x, y, width, height);
+        // self.isToggleIconVisible = oldIsToggleIconVisible;
     },
 
+    getIconGap: function() {
+        return this._sidebar.getIconGap();
+    },
     getIconWidth: function(data) {
         var self = this,
             sidebar = self._sidebar;

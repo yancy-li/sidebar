@@ -37,7 +37,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         'indent', 'messageGap',
         'headerSeparatorColor', 'headerSeparatorVisible', 'headerSeparatorSize',
         'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent', 'visibleFunc',
-        'headerIconWidth', 'headerIconHeight', 'rowIconWidth', 'rowIconHeight'
+        'headerIconWidth', 'headerIconHeight', 'rowIconWidth', 'rowIconHeight',
+        'iconGap'
     ],
     // 普通属性
     ms_ac: ['hoverDataId'],
@@ -51,6 +52,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __headerIconHeight: 16,
     __rowIconWidth: 16,
     __rowIconHeight: 16,
+    __iconGap: 4,
     __useChildSelectStateForParent: true,
 
     __rowLabelColor: '#b4bcc8',
@@ -363,7 +365,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         ui.Sidebar.superClass.onPropertyChanged.call(self, e);
 
         if (property.indexOf('header') >= 0 || property.indexOf('Header') >= 0 || property.indexOf('row') >= 0 || property.indexOf('Row') >= 0
-            || property === 'indent' || property === 'messageGap') {
+            || property === 'indent' || property === 'messageGap' || property === 'iconGap') {
             if (self.isCollapsedMode()) {
                 self._popupTree.iv();
             }
@@ -583,7 +585,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             headerIconWidth: true,
             headerIconHeight: true,
             rowIconWidth: true,
-            rowIconHeight: true
+            rowIconHeight: true,
+            iconGap: true
         });
     }
 });
