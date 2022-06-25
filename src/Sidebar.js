@@ -389,7 +389,10 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             self.clear();
             var roots = self._dataModel._roots;
             roots.each(function (data) {
-                var label = new ui.Label();
+                var label = new ui.Button();
+                label.__hoverBackground = null;
+                label.__activeBackground = null;
+                label.__border = null;
                 label.__align = 'center';
                 label.setIcon(data.getIcon());
                 label._item = {

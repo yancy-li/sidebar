@@ -28,14 +28,25 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
         document.removeEventListener(Default.isTouchable ? 'touchstart' : 'mousemove', func);
     },
     handle_documentmousemove: function(e) {
-        var nav = this.getComponent(),
+        var self = this,
+            nav = self.getComponent(),
             target = Default.getTarget(e),
             dragger = Default.getDragger();
         if (!dragger) {
             if (nav.isCollapsedMode()) {
-                if (!nav.getView().contains(target)
-                    && !nav._popupTree.getView().contains(target)) {
-                    nav.setHoverDataId(null);
+                if (!nav.getView().contains(target) && !nav._popupTree.getView().contains(target)) {
+                    if (!self.timerId) {
+                        self.timerId = setTimeout(function() {
+                            nav.setHoverDataId(null);
+                            delete self.timerId;
+                        }, 250)
+                    }
+                }
+                else {
+                    if (self.timerId) {
+                        clearTimeout(self.timerId);
+                        delete self.timerId;
+                    } 
                 }
             }
         }
@@ -44,7 +55,23 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
         var self = this,
             nav = self.getComponent();
 
-        if (nav.isCollapsedMode())
-            nav.setHoverDataId(nav.getDataIdAt(e));
+        if (nav.isCollapsedMode()) {
+            var hoverId = nav.getDataIdAt(e);
+            if (hoverId != null) {
+                if (self.timerId) {
+                    clearTimeout(self.timerId);
+                    delete self.timerId;
+                }
+                nav.setHoverDataId(hoverId);
+            }
+            else {
+                if (!self.timerId) {
+                    self.timerId = setTimeout(function() {
+                        nav.setHoverDataId(null);
+                        delete self.timerId;
+                    }, 250)
+                }
+            }
+        }
     }
 });

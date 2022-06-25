@@ -155,16 +155,18 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
         var g = self.getRootContext(),
             rootData = self.getRootData();
 
-        var drawable, textColor, headerHeight = sidebar.getHeaderHeight();
-        if (self.isSelected(rootData) || self.hasSelectedChildren(rootData) && sidebar.isUseChildSelectStateForParent()) {
-            drawable = sidebar.getSelectHeaderBackgroundDrawable();
-            textColor = sidebar.getSelectHeaderLabelColor();
+        if (rootData) {
+            var drawable, textColor, headerHeight = sidebar.getHeaderHeight();
+            if (self.isSelected(rootData) || self.hasSelectedChildren(rootData) && sidebar.isUseChildSelectStateForParent()) {
+                drawable = sidebar.getSelectHeaderBackgroundDrawable();
+                textColor = sidebar.getSelectHeaderLabelColor();
+            }
+            else {
+                drawable = sidebar.getExpandedHeaderBackgroundDrawable();
+                textColor = sidebar.getExpandedHeaderLabelColor();
+            }
+            drawable && drawable.draw(x, 0, width, headerHeight, self.getRootData(), self);
         }
-        else {
-            drawable = sidebar.getExpandedHeaderBackgroundDrawable();
-            textColor = sidebar.getExpandedHeaderLabelColor();
-        }
-        drawable.draw(x, 0, width, headerHeight, self.getRootData(), self);
 
         // 绘制 header 分割线
         if (sidebar.isHeaderSeparatorVisible()) {
@@ -176,8 +178,8 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
 
         // 绘制 header 文字
         g.beginPath();
-        var rootData = self.getRootData();
-        Default.drawText(g, self.getLabel(rootData), self.getLabelFont(rootData), textColor, x + sidebar.getIndent(), 0, 0, sidebar.getHeaderHeight());
+        if (rootData)
+            Default.drawText(g, self.getLabel(rootData), self.getLabelFont(rootData), textColor, x + sidebar.getIndent(), 0, 0, sidebar.getHeaderHeight());
 
         // 左侧白色边框
         g.beginPath();
