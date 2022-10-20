@@ -82,6 +82,35 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
     },
 
     /**
+     * 获取行背景 Drawable
+     * @param {ht.Data} data
+     * @param {Boolean} selected
+     * @param {Number} level
+     * @return {ht.ui.drawable.Drawable}
+     */
+     getRowBackgroundDrawableImpl: function (data, selected, level) {
+        var self = this,
+            sidebar = self._sidebar;
+
+        if (level > 0) {
+            if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
+                
+            }
+            else if (data.hasChildren() && self.isExpanded(data)) {
+                
+            }
+            else if (data === self.getHoverData()) {
+                
+            }
+            else {
+                return sidebar.getPopupRowBackgroundDrawable() || sidebar.getRowBackgroundDrawable();
+            }
+        }
+        
+        return PopupTree.superClass.getRowBackgroundDrawableImpl.call(self, data, selected, level);
+    },
+
+    /**
      * 返回自定义的行背景
      * @override
      * @param {ht.Data} data

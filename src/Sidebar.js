@@ -28,7 +28,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         'drawable:headerExpandIcon', 'drawable:selectHeaderExpandIcon',
         'rowHeight',
 
-        'drawable:rowBackground', 'drawable:hoverRowBackground', 'drawable:expandedRowBackground', 'drawable:selectRowBackground',
+        'drawable:rowBackground', 'drawable:hoverRowBackground', 'drawable:popupRowBackground', 'drawable:expandedRowBackground', 'drawable:selectRowBackground',
         'rowLabelFont', 'rowLabelColor', 'hoverRowLabelColor', 'expandedRowLabelColor', 'selectRowLabelColor',
 
         'drawable:rowCollapseIcon', 'drawable:hoverRowCollapseIcon', 'drawable:selectRowCollapseIcon',
@@ -561,6 +561,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             rowHeight: true,
             rowBackground: true,
             rowBackgroundDrawable: true,
+            popupRowBackground: true,
+            popupRowBackgroundDrawable: true,
             hoverRowBackground: true,
             hoverRowBackgroundDrawable: true,
             expandedRowBackground: true,
