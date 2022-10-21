@@ -457,6 +457,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             if (hoverDataId == null) {
                 popupTree.hide();
             }
+            var popupTreeShowFlag = false;
 
             for (var i = 0, length = children.size(); i < length; i++) {
                 var label = children.get(i),
@@ -464,6 +465,7 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                     hasSelectedChildren = popupTree.hasSelectedChildren(labelData);
 
                 if (label._item.id === hoverDataId) {
+                    if (label._item.items && label._item.items.length > 0) popupTreeShowFlag = true;
                     var windowInfo = Default.getWindowInfo(),
                         bound = label.getView().getBoundingClientRect();
 
@@ -524,6 +526,9 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                 }
                 label.setIconWidth(self.getHeaderIconWidth());
                 label.setIconHeight(self.getHeaderIconHeight());
+            }
+            if (!popupTreeShowFlag) {
+                popupTree.hide();
             }
         }
     },
