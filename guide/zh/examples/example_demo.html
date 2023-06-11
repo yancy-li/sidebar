@@ -6,7 +6,7 @@
     <title>Sidebar</title>
     <script src="../../../../lib/ht.js"></script>
     <script src="../../../../lib/ht-ui.js"></script>
-    <script src="../../../lib/ht-ui-sidebar.js"></script>
+    <script src="../../../build/ht-ui-sidebar-debug.js"></script>
     <script>
         function init() {
             var dataModel = new ht.DataModel();
@@ -15,59 +15,57 @@
                 var parent = new ht.Node();
                 parent.setName('Dashboard ' + i);
                 parent.s('icon', 'imgs/home.png');
-                parent.s('selectIcon', 'imgs/home_select.png');
+                parent.s('selectIcon', 'node_image');
+                if (i < 2) {
+                    for (var j = 0; j < 10; j++) {
+                        var child = new ht.Node();
+                        if (j === 1) {
+                            child.s('messages', [
+                                {
+                                    text: '1',
+                                    background: '#ed6b75'
+                                }
+                            ]);
 
-                for (var j = 0; j < 10; j++) {
-                    var child = new ht.Node();
-                    if (j === 1) {
-                        child.s('messages', [
-                            {
-                                text: '1',
-                                background: '#ed6b75'
+                            for (var k = 0; k < 6; k++) {
+                                var grandchild = new ht.Node();
+                                grandchild.setParent(child);
+                                grandchild.setName('Grandchild ' + k);
+                                dataModel.add(grandchild);
                             }
-                        ]);
-
-                        for (var k = 0; k < 6; k++) {
-                            var grandchild = new ht.Node();
-                            grandchild.setParent(child);
-                            grandchild.setName('Grandchild ' + k);
-                            dataModel.add(grandchild);
                         }
+                        else if (j === 3) {
+                            child.s('messages', [
+                                {
+                                    text: '1',
+                                    background: '#36c6d3'
+                                }
+                            ]);
+                        }
+                        else if (j === 5) {
+                            child.s('messages', [
+                                {
+                                    text: '3',
+                                    background: '#ed6b75'
+                                },
+                                {
+                                    text: '22',
+                                    background: '#36c6d3'
+                                }
+                            ]);
+                        }
+                        child.setName('Child ' + j);
+                        child.setParent(parent);
+                        dataModel.add(child);
                     }
-                    else if (j === 3) {
-                        child.s('messages', [
-                            {
-                                text: '1',
-                                background: '#36c6d3'
-                            }
-                        ]);
-                    }
-                    else if (j === 5) {
-                        child.s('messages', [
-                            {
-                                text: '3',
-                                background: '#ed6b75'
-                            },
-                            {
-                                text: '22',
-                                background: '#36c6d3'
-                            }
-                        ]);
-                    }
-                    child.setName('Child ' + j);
-                    child.setParent(parent);
-                    dataModel.add(child);
                 }
-
+                
                 dataModel.add(parent);
             };
 
             sidebar = new ht.ui.Sidebar(dataModel);
             sidebar.on('clickData', function (e) {
-                if (sidebar.isCollapsedMode() && !e.data.hasChildren()) {
-                    sidebar.hidePopup();
-                }
-                console.log('clickData', e);
+                console.trace('clickData', e);
             });
 
             borderLayout = new ht.ui.BorderLayout();

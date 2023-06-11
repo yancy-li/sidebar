@@ -38,15 +38,15 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         'headerSeparatorColor', 'headerSeparatorVisible', 'headerSeparatorSize',
         'popupDirection', 'popupSeparatorColor', 'is:useChildSelectStateForParent', 'visibleFunc',
         'headerIconWidth', 'headerIconHeight', 'rowIconWidth', 'rowIconHeight',
-        'iconGap'
+        'iconGap', 'popupHeaderVisible', 'popupSeparatorVisible', 'popupOffsetX', 'popupOffsetY'
     ],
     // 普通属性
     ms_ac: ['hoverDataId'],
 
     __popupDirection: 'right',
     __popupSeparatorColor: '#f2f6f9',
-    __headerHeight: 38,
-    __rowHeight: 30,
+    __headerHeight: 40,
+    __rowHeight: 40,  
     __messageGap: 4,
     __headerIconWidth: 16,
     __headerIconHeight: 16,
@@ -54,47 +54,45 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
     __rowIconHeight: 16,
     __iconGap: 4,
     __useChildSelectStateForParent: true,
+    __popupHeaderVisible: false,
+    __popupSeparatorVisible: false,
+    __popupOffsetX: 10,
+    __popupOffsetY: 0,
 
-    __rowLabelColor: '#b4bcc8',
-    __hoverRowLabelColor: '#b4bcc8',
-    __expandedRowLabelColor: '#b4bcc8',
-    __selectRowLabelColor: '#b4bcc8',
+    __rowLabelColor: ht.ui.uiTheme.textColor,
+    __selectRowLabelColor: '#5BB5F9',
+    __hoverRowLabelColor: '#5BB5F9',
     __headerLabelFont: '14px "Open Sans", sans-serif',
     __rowLabelFont: '14px "Open Sans", sans-serif',
 
-    __hoverRowBackground: '#3e4b5c',
-    __expandedRowBackground: '#3e4b5c',
-    __selectRowBackground: '#3e4b5c',
+    __hoverRowBackground: '#eef5fe',
 
-    __hoverHeaderBackground: '#2c3542',
-    __expandedHeaderBackground: '#2c3542',
-    __selectHeaderBackground: '#36c6d3',
+    __hoverHeaderBackground: '#eef5fe',
 
-    __headerLabelColor: '#b4bcc8',
-    __hoverHeaderLabelColor: '#b4bcc8',
-    __expandedHeaderLabelColor: '#b4bcc8',
-    __selectHeaderLabelColor: 'white',
+    __headerLabelColor: ht.ui.uiTheme.textColor,
+    __selectHeaderLabelColor: '#5BB5F9',
+    __hoverHeaderLabelColor: '#5BB5F9',
 
-    __headerCollapseIcon: 'sidebar_collapse',
-    __hoverHeaderCollapseIcon: 'sidebar_collapse',
-    __selectHeaderCollapseIcon: 'sidebar_selectCollapse',
+    __headerCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
+    __hoverHeaderCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
+    __selectHeaderCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
 
-    __headerExpandIcon: 'sidebar_expand',
-    __selectHeaderExpandIcon: 'sidebar_selectExpand',
+    __headerExpandIcon: new ht.ui.drawable.ImageDrawable('ui_panelExpand', 'centerUniform', '#a8abb2'),
+    __selectHeaderExpandIcon: new ht.ui.drawable.ImageDrawable('ui_panelExpand', 'centerUniform', '#a8abb2'),
 
-    __rowCollapseIcon: 'sidebar_collapse',
-    __hoverRowCollapseIcon: 'sidebar_collapse',
-    __selectRowCollapseIcon: 'sidebar_selectCollapse',
+    __rowCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
+    __hoverRowCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
+    __selectRowCollapseIcon: new ht.ui.drawable.ImageDrawable('ui_panelCollapse', 'centerUniform', '#a8abb2'),
 
-    __rowExpandIcon: 'sidebar_expand',
-    __selectRowExpandIcon: 'sidebar_selectExpand',
+    __rowExpandIcon: new ht.ui.drawable.ImageDrawable('ui_panelExpand', 'centerUniform', '#a8abb2'),
+    __selectRowExpandIcon: new ht.ui.drawable.ImageDrawable('ui_panelExpand', 'centerUniform', '#a8abb2'),
 
     __indent: 12,
 
-    __headerSeparatorColor: '#3d4957',
-    __headerSeparatorVisible: true,
+    __headerSeparatorColor: null,
+    __headerSeparatorVisible: false,
 
-    __background: '#364150',
+    __background: '#fff',
 
     /**
      * 获取树节点顶部距离上个节点的距离
@@ -216,6 +214,9 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
         }
         else if (kind === 'clickData') {
             self.fireViewEvent(e);
+            if (self.isCollapsedMode() && !e.data.hasChildren()) {
+                self.hidePopup();
+            }
         }
         else if (kind === 'clickDataMessage') {
             self.fireViewEvent(e);
@@ -475,8 +476,8 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                     popupTree.validateModel();
 
                     var preferredSize = popupTree.figurePreferredSize(),
-                        popupX = bound.left + windowInfo.left + bound.width,
-                        popupY = bound.top + windowInfo.top,
+                        popupX = bound.left + windowInfo.left + bound.width + self.getPopupOffsetX(),
+                        popupY = bound.top + windowInfo.top + self.getPopupOffsetY(),
                         popupWidth = preferredSize.width,
                         popupHeight = preferredSize.height;
 
@@ -494,24 +495,33 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
                     popupTree.validate();
                 }
 
-                if (popupTree.isSelected(labelData) || hasSelectedChildren && self.isUseChildSelectStateForParent()) {
-                    label.setBackgroundDrawable(self.getSelectHeaderBackgroundDrawable());
+                var labelBackgroundDrawable;
+                if (label._item.id === hoverDataId) {
+                    labelBackgroundDrawable = self.getExpandedHeaderBackgroundDrawable();
+                }                
+                else if (popupTree.isSelected(labelData) || hasSelectedChildren && self.isUseChildSelectStateForParent()) {
+                    labelBackgroundDrawable = self.getSelectHeaderBackgroundDrawable();
                 }
-                else if (label._item.id === hoverDataId) {
-                    label.setBackgroundDrawable(self.getExpandedHeaderBackgroundDrawable());
+                if (labelBackgroundDrawable == null)
+                    labelBackgroundDrawable = self.getHeaderBackgroundDrawable();
+                
+                label.setBackgroundDrawable(labelBackgroundDrawable || null);
+                
+                if (self.isHeaderSeparatorVisible()) {
+                    // var border = label.getBorder();
+                    // if (border) {
+                    //     border.setColor(self.getHeaderSeparatorColor());
+                    // }
+                    // else {
+                        label.setBorder(new ht.ui.border.IndividualLineBorder(0, 0, 1, 0, self.getHeaderSeparatorColor()));
+                        label.setHoverBorder(new ht.ui.border.IndividualLineBorder(0, 0, 1, 0, self.getHeaderSeparatorColor()));
+                        label.setActiveBorder(new ht.ui.border.IndividualLineBorder(0, 0, 1, 0, self.getHeaderSeparatorColor()));
+                    // }
                 }
                 else {
-                    label.setBackgroundDrawable(self.getHeaderBackgroundDrawable());
-                }
-
-                if (self.isHeaderSeparatorVisible()) {
-                    var border = label.getBorder();
-                    if (border) {
-                        border.setColor(self.getHeaderSeparatorColor());
-                    }
-                    else {
-                        label.setBorder(new ht.ui.border.IndividualLineBorder(0, 0, 1, 0, self.getHeaderSeparatorColor()));
-                    }
+                    label.setBorder(null);
+                    label.setHoverBorder(null);
+                    label.setActiveBorder(null);
                 }
 
                 var icon = labelData.s('icon');
@@ -596,7 +606,11 @@ def('ht.ui.Sidebar', ui.VBoxLayout, {
             headerIconHeight: true,
             rowIconWidth: true,
             rowIconHeight: true,
-            iconGap: true
+            iconGap: true,
+            popupHeaderVisible: true,
+            popupSeparatorVisible: true,
+            popupOffsetX: true,
+            popupOffsetY: true
         });
     }
 });

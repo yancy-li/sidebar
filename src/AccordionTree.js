@@ -175,33 +175,39 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             sidebar = self._sidebar;
 
         if (level === 0) {
+            var drawable;
             // header
-            if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
-                return sidebar.getSelectHeaderBackgroundDrawable();
+            if (data === self.getHoverData()) {
+                drawable = sidebar.getHoverHeaderBackgroundDrawable();
+            }
+            else if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
+                drawable = sidebar.getSelectHeaderBackgroundDrawable();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {
-                return sidebar.getExpandedHeaderBackgroundDrawable();
+                drawable = sidebar.getExpandedHeaderBackgroundDrawable();
             }
-            else if (data === self.getHoverData()) {
-                return sidebar.getHoverHeaderBackgroundDrawable();
-            }
-            else {
-                return sidebar.getHeaderBackgroundDrawable();
-            }
+            if (!drawable)
+                drawable = sidebar.getHeaderBackgroundDrawable();
+
+            return drawable;
         }
         else {
-            if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
-                return sidebar.getSelectRowBackgroundDrawable();
+            var drawable;
+            if (data === self.getHoverData()) {
+                drawable = sidebar.getHoverRowBackgroundDrawable();
+            }
+            else if (self.isSelected(data) || self.hasSelectedChildren(data) && sidebar.isUseChildSelectStateForParent()) {
+                drawable = sidebar.getSelectRowBackgroundDrawable();
             }
             else if (data.hasChildren() && self.isExpanded(data)) {
-                return sidebar.getExpandedRowBackgroundDrawable();
+                drawable = sidebar.getExpandedRowBackgroundDrawable();
             }
-            else if (data === self.getHoverData()) {
-                return sidebar.getHoverRowBackgroundDrawable();
+            
+            if (!drawable) {
+                drawable = sidebar.getRowBackgroundDrawable();
             }
-            else {
-                return sidebar.getRowBackgroundDrawable();
-            }
+                
+            return drawable;
         }
     },
 
@@ -290,7 +296,6 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             }
         }
     },
-
     /**
      * 返回自定义的图标
      * @override
@@ -302,24 +307,18 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             hasChildren = data.hasChildren(),
             icon = data.s('icon'),
             dataExpanded = hasChildren && self.isExpanded(data);
-        if (dataExpanded) {
-            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
-                return data.s('selectIcon') || icon;
-            }
-            else {
-                return data.s('expandedIcon') || icon;
-            }
+       
+        if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
+            return data.s('selectIcon') || icon;
+        }
+        else if (data === self.getHoverData()) {
+            return data.s('hoverIcon') || icon;
+        }
+        else if (dataExpanded) {
+            return data.s('expandedIcon') || icon;
         }
         else {
-            if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
-                return data.s('selectIcon') || icon;
-            }
-            else if (data === self.getHoverData()) {
-                return data.s('hoverIcon') || icon;
-            }
-            else {
-                return icon;
-            }
+            return icon;
         }
     },
 
@@ -347,33 +346,39 @@ Default.def('ht.ui.Sidebar.AccordionTree', ui.TreeView, {
             sidebar = self._sidebar;
 
         if (level === 0) {
+            var color;
             // header
             if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
-                return sidebar.getSelectHeaderLabelColor();
-            }
-            else if (data.hasChildren() && self.isExpanded(data)) {
-                return sidebar.getExpandedHeaderLabelColor();
+                color =  sidebar.getSelectHeaderLabelColor();
             }
             else if (data === self.getHoverData()) {
-                return sidebar.getHoverHeaderLabelColor();
+                color =  sidebar.getHoverHeaderLabelColor();
             }
-            else {
-                return sidebar.getHeaderLabelColor();
+            else if (data.hasChildren() && self.isExpanded(data)) {
+                color =  sidebar.getExpandedHeaderLabelColor();
             }
+            if (color == null) {
+                color = sidebar.getHeaderLabelColor();
+            }
+            return color;
         }
         else {
+            var color;
             if (self.isSelected(data) || self.hasSelectedChildren(data)  && sidebar.isUseChildSelectStateForParent()) {
-                return sidebar.getSelectRowLabelColor();
-            }
-            else if (data.hasChildren() && self.isExpanded(data)) {
-                return sidebar.getExpandedRowLabelColor();
+                color = sidebar.getSelectRowLabelColor();
             }
             else if (data === self.getHoverData()) {
-                return sidebar.getHoverRowLabelColor();
+                color = sidebar.getHoverRowLabelColor();
             }
-            else {
-                return sidebar.getRowLabelColor();
+            else if (data.hasChildren() && self.isExpanded(data)) {
+                color = sidebar.getExpandedRowLabelColor();
+            } 
+                
+            if (color == null) {
+                color = sidebar.getRowLabelColor();
             }
+            
+            return color;
         }
     },
 

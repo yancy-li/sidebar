@@ -18,7 +18,7 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
 
     self.on('d:click', function (e) {
         var lp = self.lp(e);
-        if (lp.y < sidebar.getHeaderHeight()) {
+        if (sidebar.isPopupHeaderVisible() && lp.y < sidebar.getHeaderHeight()) {
             self.fireViewEvent({
                 kind: 'clickData',
                 data: self.getRootData(),
@@ -30,9 +30,17 @@ var PopupTree = ui.Sidebar.PopupTree = function (dataModel, sidebar) {
 };
 
 Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
+    __boxShadow: ht.ui.uiTheme.popupBoxShadow,
+    __borderRadius: ht.ui.uiTheme.borderRadius,
     getPadding: function() {
         var self = this;
-        return [self._sidebar.getHeaderHeight(), 0, 0, 0];
+        var sidebar = self._sidebar;
+        if (sidebar.isPopupHeaderVisible()) {
+            return [self._sidebar.getHeaderHeight(), 0, 0, 0];
+        }
+        else {
+            return 0;
+        }
     },
     /**
      * 获取节点范围
@@ -178,7 +186,8 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
      */
     validateImpl: function (x, y, width, height) {
         var self = this,
-            sidebar = self._sidebar;
+            sidebar = self._sidebar,
+            popupHeaderVisible = sidebar.isPopupHeaderVisible();
         PopupTree.superClass.validateImpl.call(self, x, y, width, height);
 
         var g = self.getRootContext(),
@@ -207,21 +216,23 @@ Default.def('ht.ui.Sidebar.PopupTree', AccordionTree, {
 
         // 绘制 header 文字
         g.beginPath();
-        if (rootData)
+        if (popupHeaderVisible && rootData)
             Default.drawText(g, self.getLabel(rootData), self.getLabelFont(rootData), textColor, x + sidebar.getIndent(), 0, 0, sidebar.getHeaderHeight());
 
-        // 左侧白色边框
-        g.beginPath();
-        if (sidebar.getPopupDirection() === 'right') {
-            g.clearRect(0, y, 1, height);
-            g.rect(0, y, 1, height);
-        }
-        else {
-            g.clearRect(width - 1, y, 1, height);
-            g.rect(width - 1, y, 1, height);
-        }
+        if (sidebar.isPopupSeparatorVisible()) {
+            // 左侧白色边框
+            g.beginPath();
+            if (sidebar.getPopupDirection() === 'right') {
+                g.clearRect(0, y, 1, height);
+                g.rect(0, y, 1, height);
+            }
+            else {
+                g.clearRect(width - 1, y, 1, height);
+                g.rect(width - 1, y, 1, height);
+            }
 
-        g.fillStyle = sidebar.getPopupSeparatorColor();
-        g.fill();
+            g.fillStyle = sidebar.getPopupSeparatorColor();
+            g.fill();
+        }
     }
 });

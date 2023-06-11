@@ -34,7 +34,22 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
             dragger = Default.getDragger();
         if (!dragger) {
             if (nav.isCollapsedMode()) {
-                if (!nav.getView().contains(target) && !nav._popupTree.getView().contains(target)) {
+                var navRect = nav.getView().getBoundingClientRect();
+                var popupRect = nav._popupTree.getView().getBoundingClientRect();
+                navRect = {
+                    x: navRect.left,
+                    y: navRect.top,
+                    width: navRect.width,
+                    height: navRect.height
+                }
+                popupRect = {
+                    x: popupRect.left,
+                    y: popupRect.top,
+                    width: popupRect.width,
+                    height: popupRect.height
+                }
+                var unionRect = ht.Default.unionRect(navRect, popupRect);
+                if (!ht.Default.containsPoint(unionRect, ht.Default.getClientPoint(e))) {
                     if (!self.timerId) {
                         self.timerId = setTimeout(function() {
                             nav.setHoverDataId(null);
@@ -71,6 +86,24 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
                         delete self.timerId;
                     }, 250)
                 }
+            }
+        }
+    },
+    handle_mouseup: function(e) {
+        var self = this,
+            nav = self.getComponent();
+
+        if (nav.isCollapsedMode()) {
+            var hoverId = nav.getDataIdAt(e);
+            var data = nav.getDataModel().getDataById(hoverId);
+            if (data && !data.hasChildren()) {
+                nav.getDataModel().sm().setSelection(data);
+                nav.fireViewEvent({
+                    kind: 'clickData',
+                    data: data,
+                    nativeEvent: e,
+                    source: nav
+                });
             }
         }
     }
