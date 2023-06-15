@@ -73,5 +73,23 @@ ht.Default.def(SidebarInteractor, ui.Interactor, {
                 }
             }
         }
+    },
+    handle_mouseup: function(e) {
+        var self = this,
+            nav = self.getComponent();
+
+        if (nav.isCollapsedMode()) {
+            var hoverId = nav.getDataIdAt(e);
+            var data = nav.getDataModel().getDataById(hoverId);
+            if (data && !data.hasChildren()) {
+                nav.getDataModel().sm().setSelection(data);
+                nav.fireViewEvent({
+                    kind: 'clickData',
+                    data: data,
+                    nativeEvent: e,
+                    source: nav
+                });
+            }
+        }
     }
 });
